@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, isAnyOf } from '@reduxjs/toolkit';
 
 import { contactsState } from '../../model/initialStates';
 import { EMPTY_CONTACT, CONTACTS_SLICE_NAME } from '../../constants/constants';
@@ -24,7 +24,7 @@ export const getContacts = createAsyncThunk(
         } catch (error) {
             return thunkAPI.rejectWithValue(error.message);
         }
-    }
+    },
 );
 
 export const createContact = createAsyncThunk(
@@ -40,7 +40,7 @@ export const createContact = createAsyncThunk(
         } catch (error) {
             return thunkAPI.rejectWithValue(error.message);
         }
-    }
+    },
 );
 
 export const deleteContact = createAsyncThunk(
@@ -50,14 +50,14 @@ export const deleteContact = createAsyncThunk(
             const response = await api.delete(`/${contactId}`);
             if (response.status >= 400) {
                 throw new Error(
-                    `Can't delete contact. Error status: ${response.status}`
+                    `Can't delete contact. Error status: ${response.status}`,
                 );
             }
             return contactId;
         } catch (error) {
             return thunkAPI.rejectWithValue(error.message);
         }
-    }
+    },
 );
 
 export const updateContact = createAsyncThunk(
@@ -73,7 +73,7 @@ export const updateContact = createAsyncThunk(
         } catch (error) {
             return thunkAPI.rejectWithValue(error.message);
         }
-    }
+    },
 );
 
 const setError = (state, action) => {
@@ -95,45 +95,55 @@ const contactsSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(getContacts.fulfilled, (state, action) => {
-            state.isPending = false;
-            state.error = null;
-            state.contacts = action.payload;
-        });
-        builder.addCase(createContact.fulfilled, (state, action) => {
-            state.isPending = false;
-            state.error = null;
-            state.contacts.push(action.payload);
-            state.contactForEdit = { ...EMPTY_CONTACT };
-        });
-        builder.addCase(deleteContact.fulfilled, (state, action) => {
-            state.isPending = false;
-            state.error = null;
-            state.contacts = state.contacts.filter(
-                (contact) => contact.id !== action.payload
+        builder
+            .addCase(getContacts.fulfilled, (state, action) => {
+                state.isPending = false;
+                state.error = null;
+                state.contacts = action.payload;
+            })
+            .addCase(createContact.fulfilled, (state, action) => {
+                state.isPending = false;
+                state.error = null;
+                state.contacts.push(action.payload);
+                state.contactForEdit = { ...EMPTY_CONTACT };
+            })
+            .addCase(deleteContact.fulfilled, (state, action) => {
+                state.isPending = false;
+                state.error = null;
+                state.contacts = state.contacts.filter(
+                    (contact) => contact.id !== action.payload,
+                );
+                state.contactForEdit =
+                    state.contactForEdit.id === action.payload
+                        ? EMPTY_CONTACT
+                        : state.contactForEdit;
+            })
+            .addCase(updateContact.fulfilled, (state, action) => {
+                state.isPending = false;
+                state.error = null;
+                state.contacts = state.contacts.map((contact) =>
+                    contact.id === action.payload.id ? action.payload : contact,
+                );
+                state.contactForEdit = action.payload;
+            })
+            .addMatcher(
+                isAnyOf(
+                    getContacts.pending,
+                    createContact.pending,
+                    deleteContact.pending,
+                    updateContact.pending,
+                ),
+                setIsPending,
+            )
+            .addMatcher(
+                isAnyOf(
+                    getContacts.rejected,
+                    createContact.rejected,
+                    deleteContact.rejected,
+                    updateContact.rejected,
+                ),
+                setError,
             );
-            state.contactForEdit =
-                state.contactForEdit.id === action.payload
-                    ? EMPTY_CONTACT
-                    : state.contactForEdit;
-        });
-        builder.addCase(updateContact.fulfilled, (state, action) => {
-            state.isPending = false;
-            state.error = null;
-            state.contacts = state.contacts.map((contact) =>
-                contact.id === action.payload.id ? action.payload : contact
-            );
-            state.contactForEdit = action.payload;
-        });
-        builder.addCase(getContacts.pending, setIsPending);
-        builder.addCase(createContact.pending, setIsPending);
-        builder.addCase(deleteContact.pending, setIsPending);
-        builder.addCase(updateContact.pending, setIsPending);
-
-        builder.addCase(getContacts.rejected, setError);
-        builder.addCase(createContact.rejected, setError);
-        builder.addCase(deleteContact.rejected, setError);
-        builder.addCase(updateContact.rejected, setError);
     },
 });
 
