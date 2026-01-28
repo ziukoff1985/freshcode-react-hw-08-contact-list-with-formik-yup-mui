@@ -1,6 +1,7 @@
 // import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Field, Form, Formik } from 'formik';
+import * as Yup from 'yup';
 
 import {
     createContact,
@@ -9,7 +10,6 @@ import {
 } from '../../store/slices/contactsSlice';
 
 import styles from './ContactForm.module.css';
-import { EMPTY_CONTACT } from '../../constants/constants';
 
 function ContactForm() {
     const dispatch = useDispatch();
@@ -27,11 +27,21 @@ function ContactForm() {
         }
     };
 
-    const onContactDelete = (values) => {
-        if (values.id) {
-            dispatch(deleteContact(values.id));
-        }
+    const onContactDelete = (id) => {
+        dispatch(deleteContact(id));
     };
+
+    const contactValidationSchema = Yup.object().shape({
+        email: Yup.string()
+            .email('Use a valid email')
+            .min(5, 'Too short email')
+            .max(50, 'Too long email')
+            .required('Email is required'),
+        phone: Yup.string()
+            .min(5, 'Too short phone number')
+            .max(12, 'Too long phone number')
+            .required('Phone number is required'),
+    });
 
     const renderForm = ({ isValid, values, setFieldValue }) => {
         return (
@@ -84,13 +94,11 @@ function ContactForm() {
                 </div>
                 <div className={styles.inputWrapper}>
                     <Field
-                        // value={contactData.phone}
                         className={styles.input}
                         name='phone'
                         type='tel'
                         placeholder='Phone'
                         autoComplete='on'
-                        // onChange={onInputChange}
                     />
                     <button
                         className={styles.deleteButton}
@@ -112,7 +120,7 @@ function ContactForm() {
                         <button
                             className={styles.formButton}
                             type='button'
-                            onClick={() => onContactDelete(values)}
+                            onClick={() => onContactDelete(values.id)}
                         >
                             Delete
                         </button>
@@ -127,7 +135,7 @@ function ContactForm() {
             onSubmit={handleSubmitForm}
             initialValues={contactForEdit}
             enableReinitialize={true}
-            // validationSchema={{}}
+            validationSchema={contactValidationSchema}
         >
             {renderForm}
         </Formik>
