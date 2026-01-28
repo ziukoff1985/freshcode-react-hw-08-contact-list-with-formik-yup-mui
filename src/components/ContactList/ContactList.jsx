@@ -1,6 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 
+import Button from '@mui/material/Button';
+import NoteAddIcon from '@mui/icons-material/NoteAdd';
+
 import { EMPTY_CONTACT } from '../../constants/constants';
 import {
     getContacts,
@@ -32,13 +35,15 @@ function ContactList() {
                           <ContactItem key={contact.id} contact={contact} />
                       ))}
             </ul>
-            <button
-                className={styles.addButton}
+            <Button
+                variant='contained'
+                color='success'
                 type='button'
+                startIcon={<NoteAddIcon />}
                 onClick={onAddNewContact}
             >
                 New
-            </button>
+            </Button>
         </div>
     );
 }

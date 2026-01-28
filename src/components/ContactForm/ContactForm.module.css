@@ -63,3 +63,8 @@
 .formButton:hover {
     background-color: #b8b8b8;
 }
+
+.error {
+    color: #ef6464;
+    text-align: center;
+}

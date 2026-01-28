@@ -1,7 +1,12 @@
-// import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Field, Form, Formik } from 'formik';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
+
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import SaveIcon from '@mui/icons-material/Save';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 import {
     createContact,
@@ -48,6 +53,7 @@ function ContactForm() {
             <Form className={styles.contactForm}>
                 <div className={styles.inputWrapper}>
                     <Field
+                        as={TextField}
                         className={styles.input}
                         name='firstName'
                         type='text'
@@ -61,8 +67,10 @@ function ContactForm() {
                         ❌
                     </button>
                 </div>
+
                 <div className={styles.inputWrapper}>
                     <Field
+                        as={TextField}
                         className={styles.input}
                         name='lastName'
                         type='text'
@@ -78,6 +86,7 @@ function ContactForm() {
                 </div>
                 <div className={styles.inputWrapper}>
                     <Field
+                        as={TextField}
                         className={styles.input}
                         name='email'
                         type='email'
@@ -92,8 +101,12 @@ function ContactForm() {
                         ❌
                     </button>
                 </div>
+                <ErrorMessage name='email'>
+                    {(msg) => <div className={styles.error}>{msg}</div>}
+                </ErrorMessage>
                 <div className={styles.inputWrapper}>
                     <Field
+                        as={TextField}
                         className={styles.input}
                         name='phone'
                         type='tel'
@@ -108,7 +121,10 @@ function ContactForm() {
                         ❌
                     </button>
                 </div>
-                <div className={styles.buttonWrapper}>
+                <ErrorMessage name='email'>
+                    {(msg) => <div className={styles.error}>{msg}</div>}
+                </ErrorMessage>
+                {/* <div className={styles.buttonWrapper}>
                     <button
                         disabled={!isValid}
                         className={styles.formButton}
@@ -125,7 +141,34 @@ function ContactForm() {
                             Delete
                         </button>
                     )}
-                </div>
+                </div> */}
+                <Stack
+                    direction='row'
+                    spacing={2}
+                    justifyContent='center'
+                    marginTop='auto'
+                >
+                    <Button
+                        variant='contained'
+                        color='success'
+                        type='submit'
+                        disabled={!isValid}
+                        startIcon={<SaveIcon />}
+                    >
+                        Save
+                    </Button>
+                    {values.id && (
+                        <Button
+                            variant='contained'
+                            color='error'
+                            type='button'
+                            startIcon={<DeleteForeverIcon />}
+                            onClick={() => handleDeleteContact(values.id)}
+                        >
+                            Delete
+                        </Button>
+                    )}
+                </Stack>
             </Form>
         );
     };

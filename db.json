@@ -34,20 +34,6 @@
       "lastName": "Smith",
       "email": "j@j321.com",
       "phone": "987654321"
-    },
-    {
-      "id": "bd2a",
-      "firstName": "Борис",
-      "lastName": "Зюков",
-      "email": "ziukoff1985@gmail.com",
-      "phone": "0952746240"
-    },
-    {
-      "id": "f283",
-      "firstName": "Борис",
-      "lastName": "Зюков",
-      "email": "ziukoff1985@gmail.com",
-      "phone": "0952746240"
     }
   ],
   "profile": {
