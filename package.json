@@ -15,13 +15,15 @@
         "@redux-devtools/extension": "^3.3.0",
         "@reduxjs/toolkit": "^2.11.2",
         "axios": "^1.13.2",
+        "formik": "^2.4.9",
         "nanoid": "^5.1.6",
         "prop-types": "^15.8.1",
         "react": "^19.2.0",
         "react-dom": "^19.2.0",
         "react-redux": "^9.2.0",
         "redux": "^5.0.1",
-        "redux-logger": "^3.0.6"
+        "redux-logger": "^3.0.6",
+        "yup": "^1.7.1"
     },
     "devDependencies": {
         "@eslint/js": "^9.39.1",
