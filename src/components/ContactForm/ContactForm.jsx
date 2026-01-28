@@ -27,7 +27,7 @@ function ContactForm() {
         }
     };
 
-    const onContactDelete = (id) => {
+    const handleDeleteContact = (id) => {
         dispatch(deleteContact(id));
     };
 
@@ -120,7 +120,7 @@ function ContactForm() {
                         <button
                             className={styles.formButton}
                             type='button'
-                            onClick={() => onContactDelete(values.id)}
+                            onClick={() => handleDeleteContact(values.id)}
                         >
                             Delete
                         </button>
