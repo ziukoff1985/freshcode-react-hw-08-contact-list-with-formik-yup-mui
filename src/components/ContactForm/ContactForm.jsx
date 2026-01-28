@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Field, Form, Formik } from 'formik';
 
 import {
     createContact,
@@ -8,144 +9,128 @@ import {
 } from '../../store/slices/contactsSlice';
 
 import styles from './ContactForm.module.css';
+import { EMPTY_CONTACT } from '../../constants/constants';
 
 function ContactForm() {
     const dispatch = useDispatch();
 
     const contactForEdit = useSelector(
-        (state) => state.contactsList.contactForEdit
+        (state) => state.contactsList.contactForEdit,
     );
 
-    const [contactData, setContactData] = useState(contactForEdit);
-
-    useEffect(() => {
-        setContactData(contactForEdit);
-    }, [contactForEdit]);
-
-    const onAddNewContact = () => {
-        dispatch(createContact(contactData));
-    };
-
-    const onEditOldContact = () => {
-        dispatch(updateContact(contactData));
-    };
-
-    function onSubmitForm(event) {
-        event.preventDefault();
-        if (!contactData.id) {
-            onAddNewContact();
+    const handleSubmitForm = (values, action) => {
+        if (!values.id) {
+            dispatch(createContact(values));
+            action.resetForm();
         } else {
-            onEditOldContact();
+            dispatch(updateContact(values));
         }
-    }
-
-    const onContactDelete = () => {
-        dispatch(deleteContact(contactData.id));
     };
 
-    function onInputChange(event) {
-        const { name, value } = event.target;
-        setContactData((prevState) => ({
-            ...prevState,
-            [name]: value,
-        }));
-    }
+    const onContactDelete = (values) => {
+        if (values.id) {
+            dispatch(deleteContact(values.id));
+        }
+    };
 
-    function onClearField(event) {
-        const input = event.target.parentNode.firstChild;
-        setContactData((prevState) => ({
-            ...prevState,
-            [input.name]: '',
-        }));
-    }
+    const renderForm = ({ isValid, values, setFieldValue }) => {
+        return (
+            <Form className={styles.contactForm}>
+                <div className={styles.inputWrapper}>
+                    <Field
+                        className={styles.input}
+                        name='firstName'
+                        type='text'
+                        placeholder='First name'
+                    />
+                    <button
+                        className={styles.deleteButton}
+                        type='button'
+                        onClick={() => setFieldValue('firstName', '')}
+                    >
+                        ❌
+                    </button>
+                </div>
+                <div className={styles.inputWrapper}>
+                    <Field
+                        className={styles.input}
+                        name='lastName'
+                        type='text'
+                        placeholder='Last name'
+                    />
+                    <button
+                        className={styles.deleteButton}
+                        type='button'
+                        onClick={() => setFieldValue('lastName', '')}
+                    >
+                        ❌
+                    </button>
+                </div>
+                <div className={styles.inputWrapper}>
+                    <Field
+                        className={styles.input}
+                        name='email'
+                        type='email'
+                        placeholder='Email'
+                        autoComplete='on'
+                    />
+                    <button
+                        className={styles.deleteButton}
+                        type='button'
+                        onClick={() => setFieldValue('email', '')}
+                    >
+                        ❌
+                    </button>
+                </div>
+                <div className={styles.inputWrapper}>
+                    <Field
+                        // value={contactData.phone}
+                        className={styles.input}
+                        name='phone'
+                        type='tel'
+                        placeholder='Phone'
+                        autoComplete='on'
+                        // onChange={onInputChange}
+                    />
+                    <button
+                        className={styles.deleteButton}
+                        type='button'
+                        onClick={() => setFieldValue('phone', '')}
+                    >
+                        ❌
+                    </button>
+                </div>
+                <div className={styles.buttonWrapper}>
+                    <button
+                        disabled={!isValid}
+                        className={styles.formButton}
+                        type='submit'
+                    >
+                        Save
+                    </button>
+                    {values.id && (
+                        <button
+                            className={styles.formButton}
+                            type='button'
+                            onClick={() => onContactDelete(values)}
+                        >
+                            Delete
+                        </button>
+                    )}
+                </div>
+            </Form>
+        );
+    };
 
     return (
-        <form onSubmit={onSubmitForm} className={styles.contactForm}>
-            <div className={styles.inputWrapper}>
-                <input
-                    value={contactData.firstName}
-                    className={styles.input}
-                    name='firstName'
-                    type='text'
-                    placeholder='First name'
-                    onChange={onInputChange}
-                />
-                <button
-                    className={styles.deleteButton}
-                    type='button'
-                    onClick={onClearField}
-                >
-                    ❌
-                </button>
-            </div>
-            <div className={styles.inputWrapper}>
-                <input
-                    value={contactData.lastName}
-                    className={styles.input}
-                    name='lastName'
-                    type='text'
-                    placeholder='Last name'
-                    onChange={onInputChange}
-                />
-                <button
-                    className={styles.deleteButton}
-                    type='button'
-                    onClick={onClearField}
-                >
-                    ❌
-                </button>
-            </div>
-            <div className={styles.inputWrapper}>
-                <input
-                    value={contactData.email}
-                    className={styles.input}
-                    name='email'
-                    type='email'
-                    placeholder='Email'
-                    autoComplete='on'
-                    onChange={onInputChange}
-                />
-                <button
-                    className={styles.deleteButton}
-                    type='button'
-                    onClick={onClearField}
-                >
-                    ❌
-                </button>
-            </div>
-            <div className={styles.inputWrapper}>
-                <input
-                    value={contactData.phone}
-                    className={styles.input}
-                    name='phone'
-                    type='tel'
-                    placeholder='Phone'
-                    autoComplete='on'
-                    onChange={onInputChange}
-                />
-                <button
-                    className={styles.deleteButton}
-                    type='button'
-                    onClick={onClearField}
-                >
-                    ❌
-                </button>
-            </div>
-            <div className={styles.buttonWrapper}>
-                <button className={styles.formButton} type='submit'>
-                    Save
-                </button>
-                {contactData.id && (
-                    <button
-                        className={styles.formButton}
-                        type='button'
-                        onClick={onContactDelete}
-                    >
-                        Delete
-                    </button>
-                )}
-            </div>
-        </form>
+        <Formik
+            onSubmit={handleSubmitForm}
+            initialValues={contactForEdit}
+            enableReinitialize={true}
+            // validationSchema={{}}
+        >
+            {renderForm}
+        </Formik>
     );
 }
 
