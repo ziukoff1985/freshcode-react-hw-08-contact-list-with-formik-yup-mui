@@ -4,7 +4,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
-import Divider from '@mui/material/Divider';
 import DeleteIcon from '@mui/icons-material/DeleteOutline';
 
 import {
@@ -40,11 +39,12 @@ function ContactItem({ contact }) {
                         onClick={onContactDelete}
                         color='error'
                     >
-                        <DeleteIcon />
+                        <DeleteIcon fontSize='medium' />
                     </IconButton>
                 }
             >
                 <ListItemButton
+                    divider
                     selected={isActive}
                     onDoubleClick={onContactEdit}
                 >
@@ -54,7 +54,6 @@ function ContactItem({ contact }) {
                     />
                 </ListItemButton>
             </ListItem>
-            <Divider variant='middle' component='li' />
         </>
     );
 }

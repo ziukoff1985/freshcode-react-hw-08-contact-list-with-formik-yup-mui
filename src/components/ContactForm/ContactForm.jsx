@@ -83,12 +83,7 @@ function ContactForm() {
                                 type='tel'
                             />
 
-                            <Stack
-                                direction='column'
-                                spacing={2}
-                                justifyContent='center'
-                                pt={1}
-                            >
+                            <Stack spacing={2} pt={1}>
                                 <Button
                                     variant='contained'
                                     color='success'

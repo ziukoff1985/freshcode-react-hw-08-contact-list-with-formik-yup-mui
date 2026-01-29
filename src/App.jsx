@@ -17,7 +17,7 @@ function App() {
         >
             <Container maxWidth='lg'>
                 <Typography
-                    variant='h3'
+                    variant='h4'
                     align='center'
                     gutterBottom
                     sx={{ fontWeight: 'bold', color: '#333' }}
@@ -26,11 +26,11 @@ function App() {
                 </Typography>
 
                 <Grid container spacing={5} justifyContent='center'>
-                    <Grid item xs={12} md={6}>
+                    <Grid size={{ xs: 12, md: 6 }}>
                         <ContactList />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid size={{ xs: 12, md: 6 }}>
                         <ContactForm />
                     </Grid>
                 </Grid>

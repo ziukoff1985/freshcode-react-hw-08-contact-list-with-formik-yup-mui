@@ -13,7 +13,7 @@ const CustomTextField = ({ name, ...props }) => {
             {...field}
             {...props}
             fullWidth
-            variant='outlined'
+            variant='filled'
             error={meta.touched && !!meta.error}
             helperText={meta.touched && meta.error}
             slotProps={{
@@ -26,7 +26,7 @@ const CustomTextField = ({ name, ...props }) => {
                                 color='error'
                                 onClick={() => setFieldValue(name, '')}
                             >
-                                <ClearIcon fontSize='small' />
+                                <ClearIcon fontSize='medium' />
                             </IconButton>
                         </InputAdornment>
                     ),

@@ -29,7 +29,7 @@ function ContactList() {
     }, [dispatch]);
 
     return (
-        <Box sx={{ width: '100%', textAlign: 'center' }}>
+        <Box>
             <Paper
                 elevation={10}
                 sx={{ mb: 3, maxHeight: 500, overflow: 'auto', width: '100%' }}
