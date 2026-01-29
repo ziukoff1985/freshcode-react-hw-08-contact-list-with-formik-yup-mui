@@ -15,6 +15,7 @@ import {
 } from '../../store/slices/contactsSlice';
 
 import styles from './ContactForm.module.css';
+import CustomTextField from '../CustomTextField/CustomTextField';
 
 function ContactForm() {
     const dispatch = useDispatch();
@@ -48,139 +49,199 @@ function ContactForm() {
             .required('Phone number is required'),
     });
 
-    const renderForm = ({ isValid, values, setFieldValue }) => {
-        return (
-            <Form className={styles.contactForm}>
-                <div className={styles.inputWrapper}>
-                    <Field
-                        as={TextField}
-                        className={styles.input}
-                        name='firstName'
-                        type='text'
-                        placeholder='First name'
-                    />
-                    <button
-                        className={styles.deleteButton}
-                        type='button'
-                        onClick={() => setFieldValue('firstName', '')}
-                    >
-                        ❌
-                    </button>
-                </div>
+    // const renderForm = ({ isValid, values, setFieldValue }) => {
+    //     return (
+    //         <Form className={styles.contactForm}>
+    //             <div className={styles.inputWrapper}>
+    //                 <Field
+    //                     as={TextField}
+    //                     className={styles.input}
+    //                     name='firstName'
+    //                     type='text'
+    //                     placeholder='First name'
+    //                 />
+    //                 <button
+    //                     className={styles.deleteButton}
+    //                     type='button'
+    //                     onClick={() => setFieldValue('firstName', '')}
+    //                 >
+    //                     ❌
+    //                 </button>
+    //             </div>
 
-                <div className={styles.inputWrapper}>
-                    <Field
-                        as={TextField}
-                        className={styles.input}
-                        name='lastName'
-                        type='text'
-                        placeholder='Last name'
-                    />
-                    <button
-                        className={styles.deleteButton}
-                        type='button'
-                        onClick={() => setFieldValue('lastName', '')}
-                    >
-                        ❌
-                    </button>
-                </div>
-                <div className={styles.inputWrapper}>
-                    <Field
-                        as={TextField}
-                        className={styles.input}
-                        name='email'
-                        type='email'
-                        placeholder='Email'
-                        autoComplete='on'
-                    />
-                    <button
-                        className={styles.deleteButton}
-                        type='button'
-                        onClick={() => setFieldValue('email', '')}
-                    >
-                        ❌
-                    </button>
-                </div>
-                <ErrorMessage name='email'>
-                    {(msg) => <div className={styles.error}>{msg}</div>}
-                </ErrorMessage>
-                <div className={styles.inputWrapper}>
-                    <Field
-                        as={TextField}
-                        className={styles.input}
-                        name='phone'
-                        type='tel'
-                        placeholder='Phone'
-                        autoComplete='on'
-                    />
-                    <button
-                        className={styles.deleteButton}
-                        type='button'
-                        onClick={() => setFieldValue('phone', '')}
-                    >
-                        ❌
-                    </button>
-                </div>
-                <ErrorMessage name='email'>
-                    {(msg) => <div className={styles.error}>{msg}</div>}
-                </ErrorMessage>
-                {/* <div className={styles.buttonWrapper}>
-                    <button
-                        disabled={!isValid}
-                        className={styles.formButton}
-                        type='submit'
-                    >
-                        Save
-                    </button>
-                    {values.id && (
-                        <button
-                            className={styles.formButton}
-                            type='button'
-                            onClick={() => handleDeleteContact(values.id)}
-                        >
-                            Delete
-                        </button>
-                    )}
-                </div> */}
-                <Stack
-                    direction='row'
-                    spacing={2}
-                    justifyContent='center'
-                    marginTop='auto'
-                >
-                    <Button
-                        variant='contained'
-                        color='success'
-                        type='submit'
-                        disabled={!isValid}
-                        startIcon={<SaveIcon />}
-                    >
-                        Save
-                    </Button>
-                    {values.id && (
-                        <Button
-                            variant='contained'
-                            color='error'
-                            type='button'
-                            startIcon={<DeleteForeverIcon />}
-                            onClick={() => handleDeleteContact(values.id)}
-                        >
-                            Delete
-                        </Button>
-                    )}
-                </Stack>
-            </Form>
-        );
-    };
+    //             <div className={styles.inputWrapper}>
+    //                 <Field
+    //                     as={TextField}
+    //                     className={styles.input}
+    //                     name='lastName'
+    //                     type='text'
+    //                     placeholder='Last name'
+    //                 />
+    //                 <button
+    //                     className={styles.deleteButton}
+    //                     type='button'
+    //                     onClick={() => setFieldValue('lastName', '')}
+    //                 >
+    //                     ❌
+    //                 </button>
+    //             </div>
+    //             <div className={styles.inputWrapper}>
+    //                 <Field
+    //                     as={TextField}
+    //                     className={styles.input}
+    //                     name='email'
+    //                     type='email'
+    //                     placeholder='Email'
+    //                     autoComplete='on'
+    //                 />
+    //                 <button
+    //                     className={styles.deleteButton}
+    //                     type='button'
+    //                     onClick={() => setFieldValue('email', '')}
+    //                 >
+    //                     ❌
+    //                 </button>
+    //             </div>
+    //             <ErrorMessage name='email'>
+    //                 {(msg) => <div className={styles.error}>{msg}</div>}
+    //             </ErrorMessage>
+    //             <div className={styles.inputWrapper}>
+    //                 <Field
+    //                     as={TextField}
+    //                     className={styles.input}
+    //                     name='phone'
+    //                     type='tel'
+    //                     placeholder='Phone'
+    //                     autoComplete='on'
+    //                 />
+    //                 <button
+    //                     className={styles.deleteButton}
+    //                     type='button'
+    //                     onClick={() => setFieldValue('phone', '')}
+    //                 >
+    //                     ❌
+    //                 </button>
+    //             </div>
+    //             <ErrorMessage name='email'>
+    //                 {(msg) => <div className={styles.error}>{msg}</div>}
+    //             </ErrorMessage>
+    //             {/* <div className={styles.buttonWrapper}>
+    //                 <button
+    //                     disabled={!isValid}
+    //                     className={styles.formButton}
+    //                     type='submit'
+    //                 >
+    //                     Save
+    //                 </button>
+    //                 {values.id && (
+    //                     <button
+    //                         className={styles.formButton}
+    //                         type='button'
+    //                         onClick={() => handleDeleteContact(values.id)}
+    //                     >
+    //                         Delete
+    //                     </button>
+    //                 )}
+    //             </div> */}
+    //             <Stack
+    //                 direction='row'
+    //                 spacing={2}
+    //                 justifyContent='center'
+    //                 marginTop='auto'
+    //             >
+    //                 <Button
+    //                     variant='contained'
+    //                     color='success'
+    //                     type='submit'
+    //                     disabled={!isValid}
+    //                     startIcon={<SaveIcon />}
+    //                 >
+    //                     Save
+    //                 </Button>
+    //                 {values.id && (
+    //                     <Button
+    //                         variant='contained'
+    //                         color='error'
+    //                         type='button'
+    //                         startIcon={<DeleteForeverIcon />}
+    //                         onClick={() => handleDeleteContact(values.id)}
+    //                     >
+    //                         Delete
+    //                     </Button>
+    //                 )}
+    //             </Stack>
+    //         </Form>
+    //     );
+    // };
 
+    // return (
+    //     <Formik
+    //         onSubmit={handleSubmitForm}
+    //         initialValues={contactForEdit}
+    //         enableReinitialize={true}
+    //         validationSchema={contactValidationSchema}
+    //     >
+    //         {renderForm}
+    //     </Formik>
+    // );
     return (
         <Formik
-            onSubmit={handleSubmitForm}
             initialValues={contactForEdit}
             enableReinitialize={true}
             validationSchema={contactValidationSchema}
+            onSubmit={handleSubmitForm}
         >
-            {renderForm}
+            {({ isValid, values }) => (
+                <Form className={styles.contactForm}>
+                    <Stack spacing={2.5}>
+                        <CustomTextField name='firstName' label='First Name' />
+                        <CustomTextField name='lastName' label='Last Name' />
+                        <CustomTextField
+                            name='email'
+                            label='Email'
+                            type='email'
+                        />
+                        <CustomTextField
+                            name='phone'
+                            label='Phone'
+                            type='tel'
+                        />
+
+                        <Stack
+                            marginTop='auto'
+                            direction='column'
+                            spacing={2}
+                            justifyContent='center'
+                            pt={2}
+                        >
+                            <Button
+                                variant='contained'
+                                color='success'
+                                type='submit'
+                                disabled={!isValid}
+                                startIcon={<SaveIcon />}
+                                size='large'
+                            >
+                                Save
+                            </Button>
+
+                            {values.id && (
+                                <Button
+                                    variant='outlined' // Outlined для видалення часто виглядає краще
+                                    color='error'
+                                    startIcon={<DeleteForeverIcon />}
+                                    onClick={() =>
+                                        handleDeleteContact(values.id)
+                                    }
+                                    size='large'
+                                >
+                                    Delete
+                                </Button>
+                            )}
+                        </Stack>
+                    </Stack>
+                </Form>
+            )}
         </Formik>
     );
 }

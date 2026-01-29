@@ -1,6 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 
+import List from '@mui/material/List';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 
@@ -11,7 +15,7 @@ import {
 } from '../../store/slices/contactsSlice';
 import ContactItem from '../ContactItem/ContactItem';
 
-import styles from './ContactList.module.css';
+// import styles from './ContactList.module.css';
 
 function ContactList() {
     const dispatch = useDispatch();
@@ -27,24 +31,57 @@ function ContactList() {
     }, [dispatch]);
 
     return (
-        <div className={styles.contactListWrapper}>
-            <ul className={styles.contactList}>
-                {contacts.length === 0
-                    ? 'No contacts yet'
-                    : contacts.map((contact) => (
-                          <ContactItem key={contact.id} contact={contact} />
-                      ))}
-            </ul>
+        <Box sx={{ maxWidth: 400, margin: 'auto', textAlign: 'center' }}>
+            <Paper
+                elevation={3}
+                sx={{ mb: 2, maxHeight: 400, minWidth: 340, overflow: 'auto' }}
+            >
+                <List>
+                    {contacts.length === 0 ? (
+                        <Typography
+                            variant='body1'
+                            sx={{ p: 3, color: 'text.secondary' }}
+                        >
+                            No contacts yet
+                        </Typography>
+                    ) : (
+                        contacts.map((contact) => (
+                            <ContactItem key={contact.id} contact={contact} />
+                        ))
+                    )}
+                </List>
+            </Paper>
+
             <Button
                 variant='contained'
-                color='success'
-                type='button'
+                color='primary'
+                fullWidth
+                size='large'
                 startIcon={<NoteAddIcon />}
                 onClick={onAddNewContact}
             >
-                New
+                Add New Contact
             </Button>
-        </div>
+        </Box>
+        // <div className={styles.contactListWrapper}>
+        //     <ul className={styles.contactList}>
+        //         {contacts.length === 0
+        //             ? 'No contacts yet'
+        //             : contacts.map((contact) => (
+        //                   <ContactItem key={contact.id} contact={contact} />
+        //               ))}
+        //     </ul>
+        //     <Button
+        //         variant='contained'
+        //         color='success'
+        //         size='large'
+        //         type='button'
+        //         startIcon={<NoteAddIcon />}
+        //         onClick={onAddNewContact}
+        //     >
+        //         New
+        //     </Button>
+        // </div>
     );
 }
 
