@@ -31,12 +31,12 @@ function ContactList() {
     }, [dispatch]);
 
     return (
-        <Box sx={{ maxWidth: 400, margin: 'auto', textAlign: 'center' }}>
+        <Box sx={{ width: '100%', textAlign: 'center' }}>
             <Paper
                 elevation={3}
-                sx={{ mb: 2, maxHeight: 400, overflow: 'auto' }}
+                sx={{ mb: 2, maxHeight: 500, overflow: 'auto', width: '100%' }}
             >
-                <List>
+                <List disablePadding>
                     {contacts.length === 0 ? (
                         <Typography
                             variant='body1'
@@ -63,25 +63,6 @@ function ContactList() {
                 Add New Contact
             </Button>
         </Box>
-        // <div className={styles.contactListWrapper}>
-        //     <ul className={styles.contactList}>
-        //         {contacts.length === 0
-        //             ? 'No contacts yet'
-        //             : contacts.map((contact) => (
-        //                   <ContactItem key={contact.id} contact={contact} />
-        //               ))}
-        //     </ul>
-        //     <Button
-        //         variant='contained'
-        //         color='success'
-        //         size='large'
-        //         type='button'
-        //         startIcon={<NoteAddIcon />}
-        //         onClick={onAddNewContact}
-        //     >
-        //         New
-        //     </Button>
-        // </div>
     );
 }
 

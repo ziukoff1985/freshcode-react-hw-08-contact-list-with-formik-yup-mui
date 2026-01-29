@@ -50,143 +50,8 @@ function ContactForm() {
             .required('Phone number is required'),
     });
 
-    // const renderForm = ({ isValid, values, setFieldValue }) => {
-    //     return (
-    //         <Form className={styles.contactForm}>
-    //             <div className={styles.inputWrapper}>
-    //                 <Field
-    //                     as={TextField}
-    //                     className={styles.input}
-    //                     name='firstName'
-    //                     type='text'
-    //                     placeholder='First name'
-    //                 />
-    //                 <button
-    //                     className={styles.deleteButton}
-    //                     type='button'
-    //                     onClick={() => setFieldValue('firstName', '')}
-    //                 >
-    //                     ❌
-    //                 </button>
-    //             </div>
-
-    //             <div className={styles.inputWrapper}>
-    //                 <Field
-    //                     as={TextField}
-    //                     className={styles.input}
-    //                     name='lastName'
-    //                     type='text'
-    //                     placeholder='Last name'
-    //                 />
-    //                 <button
-    //                     className={styles.deleteButton}
-    //                     type='button'
-    //                     onClick={() => setFieldValue('lastName', '')}
-    //                 >
-    //                     ❌
-    //                 </button>
-    //             </div>
-    //             <div className={styles.inputWrapper}>
-    //                 <Field
-    //                     as={TextField}
-    //                     className={styles.input}
-    //                     name='email'
-    //                     type='email'
-    //                     placeholder='Email'
-    //                     autoComplete='on'
-    //                 />
-    //                 <button
-    //                     className={styles.deleteButton}
-    //                     type='button'
-    //                     onClick={() => setFieldValue('email', '')}
-    //                 >
-    //                     ❌
-    //                 </button>
-    //             </div>
-    //             <ErrorMessage name='email'>
-    //                 {(msg) => <div className={styles.error}>{msg}</div>}
-    //             </ErrorMessage>
-    //             <div className={styles.inputWrapper}>
-    //                 <Field
-    //                     as={TextField}
-    //                     className={styles.input}
-    //                     name='phone'
-    //                     type='tel'
-    //                     placeholder='Phone'
-    //                     autoComplete='on'
-    //                 />
-    //                 <button
-    //                     className={styles.deleteButton}
-    //                     type='button'
-    //                     onClick={() => setFieldValue('phone', '')}
-    //                 >
-    //                     ❌
-    //                 </button>
-    //             </div>
-    //             <ErrorMessage name='email'>
-    //                 {(msg) => <div className={styles.error}>{msg}</div>}
-    //             </ErrorMessage>
-    //             {/* <div className={styles.buttonWrapper}>
-    //                 <button
-    //                     disabled={!isValid}
-    //                     className={styles.formButton}
-    //                     type='submit'
-    //                 >
-    //                     Save
-    //                 </button>
-    //                 {values.id && (
-    //                     <button
-    //                         className={styles.formButton}
-    //                         type='button'
-    //                         onClick={() => handleDeleteContact(values.id)}
-    //                     >
-    //                         Delete
-    //                     </button>
-    //                 )}
-    //             </div> */}
-    //             <Stack
-    //                 direction='row'
-    //                 spacing={2}
-    //                 justifyContent='center'
-    //                 marginTop='auto'
-    //             >
-    //                 <Button
-    //                     variant='contained'
-    //                     color='success'
-    //                     type='submit'
-    //                     disabled={!isValid}
-    //                     startIcon={<SaveIcon />}
-    //                 >
-    //                     Save
-    //                 </Button>
-    //                 {values.id && (
-    //                     <Button
-    //                         variant='contained'
-    //                         color='error'
-    //                         type='button'
-    //                         startIcon={<DeleteForeverIcon />}
-    //                         onClick={() => handleDeleteContact(values.id)}
-    //                     >
-    //                         Delete
-    //                     </Button>
-    //                 )}
-    //             </Stack>
-    //         </Form>
-    //     );
-    // };
-
-    // return (
-    //     <Formik
-    //         onSubmit={handleSubmitForm}
-    //         initialValues={contactForEdit}
-    //         enableReinitialize={true}
-    //         validationSchema={contactValidationSchema}
-    //     >
-    //         {renderForm}
-    //     </Formik>
-    // );
     return (
-        <Paper elevation={2} sx={{ p: 3, borderRadius: 2 }}>
+        <Paper elevation={3} sx={{ p: 3, borderRadius: 2, width: '100%' }}>
             <Formik
                 initialValues={contactForEdit}
                 enableReinitialize={true}
@@ -228,6 +93,7 @@ function ContactForm() {
                                 <Button
                                     variant='contained'
                                     color='success'
+                                    fullWidth
                                     type='submit'
                                     disabled={!isValid}
                                     startIcon={<SaveIcon />}
@@ -240,6 +106,7 @@ function ContactForm() {
                                     <Button
                                         variant='outlined' // Outlined для видалення часто виглядає краще
                                         color='error'
+                                        fullWidth
                                         startIcon={<DeleteForeverIcon />}
                                         onClick={() =>
                                             handleDeleteContact(values.id)

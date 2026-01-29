@@ -29,7 +29,7 @@ function App() {
 
                 <Grid container spacing={4} justifyContent='center'>
                     {/* Список контактів */}
-                    <Grid item xs={12} md={5}>
+                    <Grid item xs={12} md={6}>
                         <ContactList />
                     </Grid>
 
