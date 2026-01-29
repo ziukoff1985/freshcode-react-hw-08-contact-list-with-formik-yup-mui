@@ -34,7 +34,7 @@ function ContactList() {
         <Box sx={{ maxWidth: 400, margin: 'auto', textAlign: 'center' }}>
             <Paper
                 elevation={3}
-                sx={{ mb: 2, maxHeight: 400, minWidth: 340, overflow: 'auto' }}
+                sx={{ mb: 2, maxHeight: 400, overflow: 'auto' }}
             >
                 <List>
                     {contacts.length === 0 ? (

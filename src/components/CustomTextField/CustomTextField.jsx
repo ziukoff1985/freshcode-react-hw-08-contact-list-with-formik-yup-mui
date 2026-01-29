@@ -12,7 +12,7 @@ const CustomTextField = ({ name, ...props }) => {
         <TextField
             {...field}
             {...props}
-            fullWidth={true}
+            fullWidth
             variant='outlined'
             // Відображаємо помилку тільки якщо поле "торкалися" (touched)
             error={meta.touched && Boolean(meta.error)}
