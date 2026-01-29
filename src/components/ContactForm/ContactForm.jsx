@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
 import Button from '@mui/material/Button';
@@ -15,7 +15,6 @@ import {
     deleteContact,
 } from '../../store/slices/contactsSlice';
 
-// import styles from './ContactForm.module.css';
 import CustomTextField from '../CustomTextField/CustomTextField';
 
 function ContactForm() {
@@ -40,18 +39,19 @@ function ContactForm() {
 
     const contactValidationSchema = Yup.object().shape({
         email: Yup.string()
-            .email('Use a valid email')
+            .email('Invalid email')
             .min(5, 'Too short email')
             .max(50, 'Too long email')
             .required('Email is required'),
         phone: Yup.string()
-            .min(5, 'Too short phone number')
-            .max(12, 'Too long phone number')
+            .matches(/^\+?\d+$/, 'Only digits are allowed')
+            .min(9, 'Too short phone number')
+            .max(15, 'Too long phone number')
             .required('Phone number is required'),
     });
 
     return (
-        <Paper elevation={3} sx={{ p: 3, borderRadius: 2, width: '100%' }}>
+        <Paper elevation={10} sx={{ p: 3, borderRadius: 2, width: '100%' }}>
             <Formik
                 initialValues={contactForEdit}
                 enableReinitialize={true}
@@ -59,11 +59,11 @@ function ContactForm() {
                 onSubmit={handleSubmitForm}
             >
                 {({ isValid, values }) => (
-                    <Form /* className={styles.contactForm} */>
+                    <Form>
                         <Typography variant='h5' sx={{ mb: 3 }}>
                             {values.id ? 'Edit Contact' : 'Add Contact'}
                         </Typography>
-                        <Stack spacing={2.5}>
+                        <Stack spacing={2}>
                             <CustomTextField
                                 name='firstName'
                                 label='First Name'
@@ -84,11 +84,10 @@ function ContactForm() {
                             />
 
                             <Stack
-                                marginTop='auto'
                                 direction='column'
                                 spacing={2}
                                 justifyContent='center'
-                                pt={2}
+                                pt={1}
                             >
                                 <Button
                                     variant='contained'
@@ -104,7 +103,7 @@ function ContactForm() {
 
                                 {values.id && (
                                     <Button
-                                        variant='outlined' // Outlined для видалення часто виглядає краще
+                                        variant='outlined'
                                         color='error'
                                         fullWidth
                                         startIcon={<DeleteForeverIcon />}

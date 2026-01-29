@@ -5,11 +5,9 @@ import Box from '@mui/material/Box';
 
 import ContactList from './components/ContactList/ContactList';
 import ContactForm from './components/ContactForm/ContactForm';
-// import styles from './App.module.css';
 
 function App() {
     return (
-        // Box з фоном на весь екран
         <Box
             sx={{
                 backgroundColor: '#f5f5f5',
@@ -27,26 +25,17 @@ function App() {
                     Contact Manager
                 </Typography>
 
-                <Grid container spacing={4} justifyContent='center'>
-                    {/* Список контактів */}
+                <Grid container spacing={5} justifyContent='center'>
                     <Grid item xs={12} md={6}>
                         <ContactList />
                     </Grid>
 
-                    {/* Форма */}
                     <Grid item xs={12} md={6}>
                         <ContactForm />
                     </Grid>
                 </Grid>
             </Container>
         </Box>
-        // <>
-        //     <h1 className={styles.title}>Contact List</h1>
-        //     <div className={styles.container}>
-        //         <ContactList />
-        //         <ContactForm />
-        //     </div>
-        // </>
     );
 }
 

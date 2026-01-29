@@ -14,16 +14,16 @@ const CustomTextField = ({ name, ...props }) => {
             {...props}
             fullWidth
             variant='outlined'
-            // Відображаємо помилку тільки якщо поле "торкалися" (touched)
             error={meta.touched && Boolean(meta.error)}
             helperText={meta.touched && meta.error}
-            // Додаємо кнопку очищення всередину інпуту
             slotProps={{
                 input: {
                     endAdornment: field.value && (
                         <InputAdornment position='end'>
                             <IconButton
+                                edge='end'
                                 size='small'
+                                color='error'
                                 onClick={() => setFieldValue(name, '')}
                             >
                                 <ClearIcon fontSize='small' />

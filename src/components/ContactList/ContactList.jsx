@@ -15,8 +15,6 @@ import {
 } from '../../store/slices/contactsSlice';
 import ContactItem from '../ContactItem/ContactItem';
 
-// import styles from './ContactList.module.css';
-
 function ContactList() {
     const dispatch = useDispatch();
 
@@ -33,10 +31,10 @@ function ContactList() {
     return (
         <Box sx={{ width: '100%', textAlign: 'center' }}>
             <Paper
-                elevation={3}
-                sx={{ mb: 2, maxHeight: 500, overflow: 'auto', width: '100%' }}
+                elevation={10}
+                sx={{ mb: 3, maxHeight: 500, overflow: 'auto', width: '100%' }}
             >
-                <List disablePadding>
+                <List>
                     {contacts.length === 0 ? (
                         <Typography
                             variant='body1'

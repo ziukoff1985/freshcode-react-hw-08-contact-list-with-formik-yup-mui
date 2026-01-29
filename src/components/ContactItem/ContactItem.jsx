@@ -12,8 +12,6 @@ import {
     setContactForEdit,
 } from '../../store/slices/contactsSlice';
 
-// import styles from './ContactItem.module.css';
-
 function ContactItem({ contact }) {
     const dispatch = useDispatch();
 
@@ -47,35 +45,17 @@ function ContactItem({ contact }) {
                 }
             >
                 <ListItemButton
-                    selected={isActive} // Це замінює ваш styles.updating
+                    selected={isActive}
                     onDoubleClick={onContactEdit}
                 >
                     <ListItemText
                         primary={`${contact.firstName} ${contact.lastName}`}
                         secondary={contact.phone}
-                        thirdary={contact.email} // Можна вивести телефон під ім'ям для краси
                     />
                 </ListItemButton>
             </ListItem>
             <Divider variant='inset' component='li' />
         </>
-        // <li
-        //     className={`${styles.contactItem} ${
-        //         contactForEdit?.id === contact.id && styles.updating
-        //     }`}
-        //     onDoubleClick={onContactEdit}
-        // >
-        //     <div className={styles.contactName}>
-        //         {contact.firstName} {contact.lastName}
-        //     </div>
-        //     <button
-        //         className={styles.deleteButton}
-        //         type='button'
-        //         onClick={onContactDelete}
-        //     >
-        //         ❌
-        //     </button>
-        // </li>
     );
 }
 
