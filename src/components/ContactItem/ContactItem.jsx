@@ -54,7 +54,7 @@ function ContactItem({ contact }) {
                     />
                 </ListItemButton>
             </ListItem>
-            <Divider variant='inset' component='li' />
+            <Divider variant='middle' component='li' />
         </>
     );
 }

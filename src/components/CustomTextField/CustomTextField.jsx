@@ -14,7 +14,7 @@ const CustomTextField = ({ name, ...props }) => {
             {...props}
             fullWidth
             variant='outlined'
-            error={meta.touched && Boolean(meta.error)}
+            error={meta.touched && !!meta.error}
             helperText={meta.touched && meta.error}
             slotProps={{
                 input: {
