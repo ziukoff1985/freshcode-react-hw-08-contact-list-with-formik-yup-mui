@@ -12,7 +12,7 @@ import {
     setContactForEdit,
 } from '../../store/slices/contactsSlice';
 
-import styles from './ContactItem.module.css';
+// import styles from './ContactItem.module.css';
 
 function ContactItem({ contact }) {
     const dispatch = useDispatch();
