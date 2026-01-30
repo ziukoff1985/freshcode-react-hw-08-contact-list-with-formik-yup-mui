@@ -51,10 +51,10 @@ function ContactForm() {
     });
 
     return (
-        <Paper elevation={10} sx={{ p: 3, borderRadius: 2, width: '100%' }}>
+        <Paper elevation={10} sx={{ p: 3 }}>
             <Formik
                 initialValues={contactForEdit}
-                enableReinitialize={true}
+                enableReinitialize
                 validationSchema={contactValidationSchema}
                 onSubmit={handleSubmitForm}
             >

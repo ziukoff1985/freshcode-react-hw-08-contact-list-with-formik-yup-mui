@@ -32,13 +32,17 @@ function ContactList() {
         <Box>
             <Paper
                 elevation={10}
-                sx={{ mb: 3, maxHeight: 500, overflow: 'auto', width: '100%' }}
+                sx={{
+                    mb: 3,
+                    maxHeight: 500,
+                    overflow: 'auto',
+                }}
             >
                 <List>
                     {contacts.length === 0 ? (
                         <Typography
                             variant='body1'
-                            sx={{ p: 3, color: 'text.secondary' }}
+                            sx={{ p: 3, textAlign: 'center' }}
                         >
                             No contacts yet
                         </Typography>
